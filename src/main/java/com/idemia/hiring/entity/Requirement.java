@@ -22,7 +22,7 @@ import javax.persistence.Table;
 public class Requirement {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String requisitionId;
 	private Date dateOfOpening;
@@ -35,7 +35,7 @@ public class Requirement {
 	private String selectedCandidate;
 	private String dateOfSelection;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "requirement")
 	private final List<Candidate> candidate = new ArrayList<>();
 
 	public Date getDateOfOpening() {

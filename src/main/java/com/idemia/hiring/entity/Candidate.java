@@ -30,7 +30,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Candidate {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer candidateId;
 	
 	private String panCard;
@@ -52,7 +52,7 @@ public class Candidate {
 	
 	private String onlineScore;
 	
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "candidate")
 	private final List<Interview> interview = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -23,7 +23,7 @@ import com.idemia.hiring.enums.RatingEnum;
 public class Interview {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer interviewId;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
