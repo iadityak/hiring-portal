@@ -2,6 +2,8 @@ package com.idemia.hiring.service.Impl;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.idemia.hiring.repository.RequirementRepository;
 import com.idemia.hiring.service.CandidateService;
 
 @Service
+@Transactional
 public class CandidateServiceImpl implements CandidateService{
 	
 	@Autowired
@@ -28,13 +31,13 @@ public class CandidateServiceImpl implements CandidateService{
 	private ObjectMapper objectMapper;
 	
 	@Override
+	@Transactional
 	public void addCandidate(CandidateDTO candidateDTO) {
 		Candidate candidate = objectMapper.convertToCandidateEntity(candidateDTO);
 		Requirement requirement = requirementRepository.findByRequisitionId(candidateDTO.getRequisitionId());
 		if (requirement!=null) {
 			candidate.setRequirement(requirement);
 			requirement.getCandidate().add(candidate);
-			requirementRepository.save(requirement);
 			candidateRepository.save(candidate);
 			
 		}
@@ -49,12 +52,18 @@ public class CandidateServiceImpl implements CandidateService{
 
 	@Override
 	public Candidate findCandidatebyPan(String panCard) {
-		return candidateRepository.findById(panCard).get();
+		Candidate candidate = candidateRepository.findByPanCard(panCard);
+		if (candidate!=null) {
+			return candidate;
+		}
+		else
+			throw new CandidateException("Candidate doesn't exist");
 	}
 
 	@Override
-	public void updateCandidate(CandidateDTO candidateDTO) {
-		if(candidateRepository.existsById(candidateDTO.getPanCard())){
+	public void updateCandidate(CandidateDTO candidateDTO,String panCard ) {
+		Candidate can = candidateRepository.findByPanCard(panCard);
+		if(can!=null){
 			 	Candidate candidate = objectMapper.convertToCandidateEntity(candidateDTO);
 				candidateRepository.save(candidate);
 			}

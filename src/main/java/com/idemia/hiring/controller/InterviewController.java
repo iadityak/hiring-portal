@@ -32,10 +32,7 @@ public class InterviewController {
 	
 	@GetMapping("/get/all/{pancard}")
 	public List<Interview> getInterveiw(@PathVariable(value = "pancard", required = true) String panCard){
-		List<Interview> list = new ArrayList<>();
-		list = interviewService.getAllInterview(panCard);
-		return null;
-		
+		return interviewService.getAllInterview(panCard);
 	}
 	
 

@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  *@author G521774 (aditya.kumar@idemia.com)
@@ -36,6 +38,7 @@ public class Requirement {
 	private String dateOfSelection;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "requirement")
+	@JsonIgnore
 	private final List<Candidate> candidate = new ArrayList<>();
 
 	public Date getDateOfOpening() {
@@ -121,6 +124,15 @@ public class Requirement {
 
 	public void setRequisitionId(String requisitionId) {
 		this.requisitionId = requisitionId;
+	}
+
+	@Override
+	public String toString() {
+		return "Requirement [id=" + id + ", requisitionId=" + requisitionId + ", dateOfOpening=" + dateOfOpening
+				+ ", position=" + position + ", domain=" + domain + ", subDomain=" + subDomain + ", reportingManager="
+				+ reportingManager + ", jobDescription=" + jobDescription + ", jobStatus=" + jobStatus
+				+ ", selectedCandidate=" + selectedCandidate + ", dateOfSelection=" + dateOfSelection + ", candidate="
+				+ candidate + "]";
 	}
 
 }

@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 
  *@author G521774 (aditya.kumar@idemia.com)
@@ -33,6 +35,7 @@ public class Candidate {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer candidateId;
 	
+	@Column(unique = true)
 	private String panCard;
 	
 	private String firstName;
@@ -53,10 +56,12 @@ public class Candidate {
 	private String onlineScore;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "candidate")
+	@JsonIgnore
 	private final List<Interview> interview = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "requisition_id")
+	@JsonIgnore
 	private Requirement requirement;
 	
 	private String status;
@@ -136,6 +141,14 @@ public class Candidate {
 	}
 	public void setOnlineScore(String onlineScore) {
 		this.onlineScore = onlineScore;
+	}
+	@Override
+	public String toString() {
+		return "Candidate [candidateId=" + candidateId + ", panCard=" + panCard + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", email=" + email + ", experienceYears="
+				+ experienceYears + ", skillSet=" + skillSet + ", resume=" + resume + ", onlineScore=" + onlineScore
+				+ ", interview=" + interview + ", requirement=" + requirement + ", status=" + status
+				+ ", dateOfEnrollment=" + dateOfEnrollment + ", lastUpdated=" + lastUpdated + "]";
 	}
 	
 }

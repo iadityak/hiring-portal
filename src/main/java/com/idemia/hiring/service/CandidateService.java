@@ -13,6 +13,6 @@ public interface CandidateService {
 
 	Candidate findCandidatebyPan(String panCard);
 
-	void updateCandidate(CandidateDTO candidateDTO);
+	void updateCandidate(CandidateDTO candidateDTO, String panCard );
 
 }

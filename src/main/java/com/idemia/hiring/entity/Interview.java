@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idemia.hiring.enums.RatingEnum;
 
 /**
@@ -28,6 +29,7 @@ public class Interview {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidateId")
+	@JsonIgnore
 	private Candidate candidate ;
 	
 	private int roundNumber;

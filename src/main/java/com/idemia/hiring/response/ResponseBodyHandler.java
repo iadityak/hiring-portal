@@ -18,14 +18,16 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @ControllerAdvice("com.idemia.hiring.controller")
 public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
 	private final Logger log = LoggerFactory.getLogger(ResponseBodyHandler.class);
-	@Autowired(required=false)
-    HttpServletRequest req;
+	@Autowired(required = false)
+	HttpServletRequest req;
 
 	@Override
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-		String path=req.getRequestURI();
-		return body instanceof ResponseEnvelope || body instanceof LinkedHashMap ? body : new ResponseEnvelope(body,null,path);
+			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
+			ServerHttpResponse response) {
+		String path = req.getRequestURI();
+		return body instanceof ResponseEnvelope || body instanceof LinkedHashMap ? body
+				: new ResponseEnvelope(body, null, path);
 	}
 
 	@Override

@@ -7,16 +7,16 @@ import java.util.List;
 import com.idemia.hiring.exception.FieldErrorDTO;
 
 @JsonInclude(value=Include.NON_NULL)
-public class ResponseEnvelope {
+public class ResponseEnvelope<T> {
 	private  boolean success;
-	private Object data;
+	private T data;
 	private String path;
 	private String message;
 	private List< FieldErrorDTO > errors;
 
 	public ResponseEnvelope() {}
 
-	public ResponseEnvelope(Object body,String message,String path) {
+	public ResponseEnvelope(T body,String message,String path) {
 		this.success=true;
 		this.data=body;
 		this.message=message;
@@ -46,11 +46,11 @@ public class ResponseEnvelope {
 		this.errors = errors;
 	}
 
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 
-	public void setData(Object data) {
+	public void setData(T data) {
 		this.data = data;
 	}
 

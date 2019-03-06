@@ -1,10 +1,9 @@
 package com.idemia.hiring.service.Impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
+import org.springframework.transaction.annotation.Transactional;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +31,9 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	@Transactional
 	public void addInterview(InterviewDTO interviewDTO) {
-		Interview interview = objectMapper.convertToInterviewEntity(interviewDTO);
 		Candidate candidate = candidateRepository.findByPanCard(interviewDTO.getCandidatePanCard());
 		if(candidate!=null){
+			Interview interview = objectMapper.convertToInterviewEntity(interviewDTO);
 			interview.setCandidate(candidate);
 			candidate.getInterview().add(interview);
 			interviewRepository.save(interview);
@@ -46,8 +45,20 @@ public class InterviewServiceImpl implements InterviewService {
 	}
 
 	@Override
+	@Transactional
 	public List<Interview> getAllInterview(String panCard) {
-		return interviewRepository.findByCandidatePanCard(panCard);
+		Candidate candidate = candidateRepository.findByPanCard(panCard);
+		if(candidate!=null) {
+			Hibernate.initialize(candidate.getInterview());
+			List<Interview> interview = candidate.getInterview();
+			if(interview!=null) {
+				return interview;
+			}
+			else
+				throw new CandidateException("No Interview Rounds Exists for this Candidate");
+		}
+		else
+			throw new CandidateException("Candidate doesn't exist");
 
 	}
 

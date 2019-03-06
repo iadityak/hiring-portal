@@ -2,8 +2,10 @@ package com.idemia.hiring.service.Impl;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.idemia.hiring.dto.RequirementDTO;
 import com.idemia.hiring.entity.Candidate;
@@ -18,11 +20,10 @@ public class RequirementServiceImpl implements RequirementService {
 
 	@Autowired
 	private RequirementRepository requirementRepository;
-	
+
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	
 	@Override
 	public void addRequirement(RequirementDTO requirementDTO) {
 		Requirement requirement = new Requirement();
@@ -30,22 +31,26 @@ public class RequirementServiceImpl implements RequirementService {
 		requirementRepository.save(requirement);
 	}
 
-
 	@Override
+	@Transactional
 	public List<Requirement> getAllRequirements() {
 		return requirementRepository.findAll();
 	}
 
-
 	@Override
+	@Transactional
 	public List<Candidate> getCandidatesFroRequirements(String requisitionId) {
-		Requirement requirement = requirementRepository.findByRequisitionId(requisitionId) ;
-		List<Candidate> candidate = requirement.getCandidate();
-		if(candidate!=null) {
-			return candidate;
+		Requirement requirement = requirementRepository.findByRequisitionId(requisitionId);
+		if (requirement != null) {
+			Hibernate.initialize(requirement.getCandidate());
+			List<Candidate> candidate = requirement.getCandidate();
+			if (candidate != null) {
+				return candidate;
+			} else
+				throw new CandidateException("No Candidate exist for this Requirement");
 		}
-		else
-			throw new CandidateException("No Candidate exist for this Requirement");
-	}
 
+		else
+			throw new CandidateException("Invalid Requisition ID");
+	}
 }

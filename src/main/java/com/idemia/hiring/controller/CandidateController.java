@@ -41,6 +41,6 @@ public class CandidateController {
 	
 	@PutMapping("/update/{pancard}")
 	public void updateCandidate(@PathVariable(value="pancard",required=true) String panCard, @RequestBody CandidateDTO candidateDTO) {
-		candidateService.updateCandidate(candidateDTO);
+		candidateService.updateCandidate(candidateDTO, panCard);
 	}
 }
