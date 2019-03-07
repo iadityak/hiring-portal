@@ -14,5 +14,6 @@ public interface CandidateService {
 	Candidate findCandidatebyPan(String panCard);
 
 	void updateCandidate(CandidateDTO candidateDTO, String panCard );
-
+	
+	boolean candidateExistsByPan(String pan);
 }

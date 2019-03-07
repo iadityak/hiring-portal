@@ -70,5 +70,9 @@ public class CandidateServiceImpl implements CandidateService{
 		else
 			throw new CandidateException("UPDATE FAIL. Candidate doesn't exist");
 	}
+	
+	public boolean candidateExistsByPan(String pan) {
+		return candidateRepository.existsByPanCard(pan);
+	}
 
 }

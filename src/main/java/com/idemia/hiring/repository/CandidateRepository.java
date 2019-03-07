@@ -11,4 +11,6 @@ public interface CandidateRepository extends JpaRepository<Candidate,String>{
 
 	Candidate findByPanCard(String candidatePanCard);
 
+	boolean existsByPanCard(String pan);
+
 }
