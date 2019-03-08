@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.idemia.hiring.dto.CandidateDTO;
@@ -47,7 +48,7 @@ public class CandidateServiceImpl implements CandidateService{
 
 	@Override
 	public List<Candidate> allCandidates() {
-		return candidateRepository.findAll();
+		return candidateRepository.findAll(sortCandidatesByIdDesc());
 	}
 
 	@Override
@@ -74,5 +75,10 @@ public class CandidateServiceImpl implements CandidateService{
 	public boolean candidateExistsByPan(String pan) {
 		return candidateRepository.existsByPanCard(pan);
 	}
+
+	private Sort sortCandidatesByIdDesc() {
+		return new Sort(Sort.Direction.DESC, "candidateId");
+	}
+	
 
 }
