@@ -18,7 +18,7 @@ import com.idemia.hiring.service.InterviewService;
 
 
 @RestController
-@RequestMapping("/api/intevriew")
+@RequestMapping("/api/interview")
 @CrossOrigin
 public class InterviewController {
 	

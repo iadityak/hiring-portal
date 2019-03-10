@@ -16,4 +16,6 @@ public interface CandidateService {
 	void updateCandidate(CandidateDTO candidateDTO, String panCard );
 	
 	boolean candidateExistsByPan(String pan);
+
+	Candidate eagerGetCandidateByPan(String panCard);
 }

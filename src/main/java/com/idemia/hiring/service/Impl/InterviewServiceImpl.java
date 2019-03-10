@@ -36,6 +36,7 @@ public class InterviewServiceImpl implements InterviewService {
 			Interview interview = objectMapper.convertToInterviewEntity(interviewDTO);
 			interview.setCandidate(candidate);
 			candidate.getInterview().add(interview);
+			candidate.setStatus(interviewDTO.getRoundStatus());
 			interviewRepository.save(interview);
 			candidateRepository.save(candidate);
 		}

@@ -35,6 +35,8 @@ public class Interview {
 	private int roundNumber;
 	private Date dateOfInterview;
 	private String interviewerName;
+	private String interviewerComments;
+	private String roundStatus;
 	private RatingEnum domainLogic;
 	private RatingEnum programming;
 	private RatingEnum analysis;
@@ -53,8 +55,7 @@ public class Interview {
 	private RatingEnum projectEstimationSkills;
 	private RatingEnum peopleManagement;
 	private RatingEnum overallRating;
-	private String interviewerComments;
-	private String roundStatus;
+
 	
 	public Integer getInterviewId() {
 		return interviewId;

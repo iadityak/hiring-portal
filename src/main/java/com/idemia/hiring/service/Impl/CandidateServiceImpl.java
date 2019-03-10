@@ -79,6 +79,17 @@ public class CandidateServiceImpl implements CandidateService{
 	private Sort sortCandidatesByIdDesc() {
 		return new Sort(Sort.Direction.DESC, "candidateId");
 	}
-	
+
+	@Override
+	public Candidate eagerGetCandidateByPan(String panCard) {
+		Candidate candidate = candidateRepository.findByPanCard(panCard);
+		if (candidate!=null) {
+			candidate.setRequirement(candidate.getRequirement());
+			candidate.getInterview();
+			return candidate;
+		}
+		else
+			throw new CandidateException("Candidate doesn't exist");
+	}
 
 }
