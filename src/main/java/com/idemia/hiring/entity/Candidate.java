@@ -1,5 +1,6 @@
 package com.idemia.hiring.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +69,10 @@ public class Candidate {
 	
 	@CreationTimestamp
 	@Column(nullable = false,updatable = false)
-	private LocalDateTime dateOfEnrollment;
+	private Timestamp dateOfEnrollment;
 	
 	@UpdateTimestamp
-	private LocalDateTime lastUpdated;
+	private Timestamp lastUpdated;
 	
 	public String getPanCard() {
 		return panCard;
@@ -149,6 +150,12 @@ public class Candidate {
 				+ experienceYears + ", skillSet=" + skillSet + ", resume=" + resume + ", onlineScore=" + onlineScore
 				+ ", interview=" + interview + ", requirement=" + requirement + ", status=" + status
 				+ ", dateOfEnrollment=" + dateOfEnrollment + ", lastUpdated=" + lastUpdated + "]";
+	}
+	public Timestamp getDateOfEnrollment() {
+		return dateOfEnrollment;
+	}
+	public void setDateOfEnrollment(Timestamp dateOfEnrollment) {
+		this.dateOfEnrollment = dateOfEnrollment;
 	}
 	
 }
