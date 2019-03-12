@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "cb1d02a2-d375-4e9f-9290-594949cbb188",
+		"name": "Hiring Portal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Requirements",
+			"item": [
+				{
+					"name": "Get All requirements",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/requirement/get/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"requirement",
+								"get",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Candidates for Specific Requisition ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/requirement/get/ASE1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"requirement",
+								"get",
+								"ASE1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Requirement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"dateOfOpening\": \"2019-03-06T14:08:35.286Z\",\r\n  \"domain\": \"ASP .NET\",\r\n  \"jobDescription\": \"Backend Developer with experience in C#, .NET, C++\",\r\n  \"jobStatus\": \"OPEN\",\r\n  \"position\": \"Senior Software Engineer\",\r\n  \"reportingManager\": \"John Doe\",\r\n  \"requisitionId\": \"SSE1\",\r\n  \"subDomain\": \"DACS\"\r\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/requirement/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"requirement",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add Candidate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"hs@gmail.com\",\r\n  \"experienceYears\": \"3\",\r\n  \"firstName\": \"Mike\",\r\n  \"lastName\": \"Ross\",\r\n  \"onlineScore\": \"90\",\r\n  \"panCard\": \"IDEMIA900\",\r\n  \"phoneNumber\": \"9717514781\",\r\n  \"requisitionId\": \"ASE1\",\r\n  \"skillSet\": \"JAVA\",\r\n  \"status\": \"PROFILE_CREATED\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/candidate/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candidate",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Candidates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/candidate/get/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candidate",
+						"get",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Candidates by Pan",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3ee2e927-db62-41ca-9576-eff0b7b9d994",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/candidate/get/DOYPK12345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candidate",
+						"get",
+						"DOYPK12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Candidate",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n            \"panCard\": \"DOYPK12345\",\n            \"firstName\": \"Williami\",\n            \"lastName\": \"Doe\",\n            \"phoneNumber\": \"9717514780\",\n            \"email\": \"wd@gmail.com\",\n            \"experienceYears\": \"1\",\n            \"skillSet\": \"JAVA\",\n            \"resume\": null,\n            \"onlineScore\": null,\n            \"status\": \"PROFILE_CREATED\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/candidate/update/DOYPK12345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"candidate",
+						"update",
+						"DOYPK12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Resume",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/resume/download/DOYPK1236",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resume",
+						"download",
+						"DOYPK1236"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Resume Upload",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "3ee2e927-db62-41ca-9576-eff0b7b9d994",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "user",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/form-data",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/resume/upload/DOYPK1236",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"resume",
+						"upload",
+						"DOYPK1236"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Escalator Login",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "cGFzc3dvcmQh",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "sys0852",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://10.132.211.20/eSCLatorServices/AdminService.svc/Authenticate/sys0852/cGFzc3dvcmQh",
+					"protocol": "http",
+					"host": [
+						"10",
+						"132",
+						"211",
+						"20"
+					],
+					"path": [
+						"eSCLatorServices",
+						"AdminService.svc",
+						"Authenticate",
+						"sys0852",
+						"cGFzc3dvcmQh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Interview Round",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"analysis\": null,\r\n  \"candidatePanCard\": \"DOYPK12678\",\r\n  \"dateOfInterview\": \"2019-03-06T17:51:35.449Z\",\r\n  \"designing\": \"POOR\",\r\n  \"documentation\": \"POOR\",\r\n  \"domainLogic\": \"POOR\",\r\n  \"integration\": \"POOR\",\r\n  \"interviewerComments\": \"Good DS and Algo\",\r\n  \"interviewerName\": \"string\",\r\n  \"overallRating\": \"POOR\",\r\n  \"peopleManagement\": \"POOR\",\r\n  \"planningAndOrganizing\": \"POOR\",\r\n  \"process\": \"POOR\",\r\n  \"programming\": \"POOR\",\r\n  \"projectEstimationSkills\": \"POOR\",\r\n  \"projectManagement\": \"POOR\",\r\n  \"quality\": \"POOR\",\r\n  \"roundNumber\": 2,\r\n  \"roundStatus\": \"NEXT_ROUND\",\r\n  \"scheduleManagement\": \"POOR\",\r\n  \"structuredTechniques\": \"POOR\",\r\n  \"sysAdministration\": \"POOR\",\r\n  \"techSupport\": \"POOR\",\r\n  \"testing\": \"POOR\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/interview/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"interview",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Parse Resume",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "resume",
+							"type": "file",
+							"src": ""
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8081/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Interview Round Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/intevriew/get/all/DOYPK12345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"intevriew",
+						"get",
+						"all",
+						"DOYPK12345"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
