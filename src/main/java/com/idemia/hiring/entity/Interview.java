@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,9 +27,9 @@ public class Interview {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer interviewId;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "candidateId")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "candidateId")
 	@JsonIgnore
 	private Candidate candidate ;
 	
@@ -55,6 +56,8 @@ public class Interview {
 	private RatingEnum projectEstimationSkills;
 	private RatingEnum peopleManagement;
 	private RatingEnum overallRating;
+	@OneToOne(mappedBy = "candFeedRound")
+	private CandidateFeedback candidateFeedback;
 
 	
 	public Integer getInterviewId() {
@@ -207,5 +210,11 @@ public class Interview {
 	public void setOverallRating(RatingEnum overallRating) {
 		this.overallRating = overallRating;
 	}
-	
+	public CandidateFeedback getCandidateFeedback() {
+		return candidateFeedback;
+	}
+
+	public void setCandidateFeedback(CandidateFeedback candidateFeedback) {
+		this.candidateFeedback = candidateFeedback;
+	}
 }
