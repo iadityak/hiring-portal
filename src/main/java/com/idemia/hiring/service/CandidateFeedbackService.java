@@ -2,6 +2,7 @@ package com.idemia.hiring.service;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.idemia.hiring.dto.CandidateFeedbackDTO;
 import com.idemia.hiring.entity.Candidate;
 import com.idemia.hiring.entity.CandidateFeedback;
 
@@ -24,6 +25,6 @@ public interface CandidateFeedbackService {
 
 	void returnFeedbackForm(String jwtToken, ModelAndView modelAndView);
 
-	void submitFeedback(Integer interviewId, String comments, String rate);
+	void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO);
 
 }

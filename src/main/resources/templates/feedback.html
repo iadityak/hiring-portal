@@ -63,7 +63,7 @@ input[type=submit]:hover {
 			action="http://localhost:8080/api/candidate/feedback/submitfeedback"
 			method="post">
 			<label for="rate">Please rate our interviewer</label> <select
-				id="rate" name="rate">
+				id="rate" name="rating">
 				<option value="POOR">Poor</option>
 				<option value="FAIR">Fair</option>
 				<option value="GOOD">Good</option>
@@ -72,7 +72,7 @@ input[type=submit]:hover {
 			</select> <label for="subject">Suggestion/Feedback</label>
 			<textarea id="subject" name="comments"
 				placeholder="Write something.." style="height: 200px"></textarea>
-			<input type="hidden" id="userRoundId" name="interviewid"
+			<input type="hidden" id="userRoundId" name="interviewId"
 				th:value=${interviewId}> <input type="submit" value="Submit">
 		</form>
 	</div>

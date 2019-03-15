@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.idemia.hiring.dto.CandidateFeedbackDTO;
 import com.idemia.hiring.exception.CandidateException;
 import com.idemia.hiring.service.CandidateFeedbackService;
 
@@ -26,9 +27,8 @@ public class CandidateFeedbackController {
 	private CandidateFeedbackService candidateFeedbackService;
 
 	@PostMapping("/submitfeedback")
-	public void submitFeedback(@ModelAttribute("interviewid") Integer interviewId,
-			@ModelAttribute("comments") String comments, @ModelAttribute("rate") String rate) {
-		candidateFeedbackService.submitFeedback(interviewId, comments, rate);
+	public void submitFeedback(@ModelAttribute CandidateFeedbackDTO candidateFeedbackDTO) {
+		candidateFeedbackService.submitFeedback(candidateFeedbackDTO);
 	}
 
 	@GetMapping("/sendemail/{interviewid}")

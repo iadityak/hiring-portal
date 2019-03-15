@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.idemia.hiring.constants.AppConstants;
+import com.idemia.hiring.dto.CandidateFeedbackDTO;
 import com.idemia.hiring.entity.Candidate;
 import com.idemia.hiring.entity.CandidateFeedback;
 import com.idemia.hiring.entity.Interview;
@@ -98,12 +99,12 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 	}
 
 	@Override
-	public void submitFeedback(Integer interviewId, String comments, String rate) {
+	public void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO) {
 		CandidateFeedback candidateFeedback = new CandidateFeedback();
-		candidateFeedback.setCandFeedComments(comments);
+		candidateFeedback.setCandFeedComments(candidateFeedbackDTO.getComments());
 		candidateFeedback.setCandFeedCreated(LocalDateTime.now());
-		candidateFeedback.setCandFeedOverallRating(RatingEnum.valueOf(rate));
-		Interview fetchedInterview = interviewService.findByInterviewId(interviewId);
+		candidateFeedback.setCandFeedOverallRating(RatingEnum.valueOf(candidateFeedbackDTO.getRating()));
+		Interview fetchedInterview = interviewService.findByInterviewId(candidateFeedbackDTO.getInterviewId());
 		candidateFeedback.setCandFeedCandidate(fetchedInterview.getCandidate());
 		candidateFeedback.setCandFeedRound(fetchedInterview);
 		createCandFeedback(candidateFeedback);
