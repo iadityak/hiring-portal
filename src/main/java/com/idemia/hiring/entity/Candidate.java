@@ -73,9 +73,9 @@ public class Candidate {
 	
 	@UpdateTimestamp
 	private Timestamp lastUpdated;
-
-	@OneToOne(mappedBy = "candFeedCandidate")
-	private CandidateFeedback candidateFeedback;
+	@OneToMany(mappedBy = "candFeedCandidate")
+	@JsonIgnore
+	private List<CandidateFeedback> listOfCandidateFeedback;
 
 	public String getPanCard() {
 		return panCard;
@@ -168,13 +168,12 @@ public class Candidate {
 	public void setCandidateId(Integer candidateId) {
 		this.candidateId = candidateId;
 	}
-
-	public CandidateFeedback getCandidateFeedback() {
-		return candidateFeedback;
+	public List<CandidateFeedback> getListOfCandidateFeedback() {
+		return listOfCandidateFeedback;
+	}
+	public void setListOfCandidateFeedback(List<CandidateFeedback> listOfCandidateFeedback) {
+		this.listOfCandidateFeedback = listOfCandidateFeedback;
 	}
 
-	public void setCandidateFeedback(CandidateFeedback candidateFeedback) {
-		this.candidateFeedback = candidateFeedback;
-	}
 
 }
