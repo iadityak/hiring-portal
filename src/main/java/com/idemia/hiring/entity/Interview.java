@@ -56,6 +56,7 @@ public class Interview {
 	private RatingEnum projectEstimationSkills;
 	private RatingEnum peopleManagement;
 	private RatingEnum overallRating;
+	private String reason;
 	@OneToOne(mappedBy = "candFeedRound")
 	private CandidateFeedback candidateFeedback;
 
@@ -216,5 +217,11 @@ public class Interview {
 
 	public void setCandidateFeedback(CandidateFeedback candidateFeedback) {
 		this.candidateFeedback = candidateFeedback;
+	}
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 }

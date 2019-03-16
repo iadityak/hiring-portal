@@ -30,6 +30,7 @@ public class InterviewDTO {
 	private RatingEnum projectEstimationSkills;
 	private RatingEnum peopleManagement;
 	private RatingEnum overallRating;
+	private String reason;
 	
 	public int getRoundNumber() {
 		return roundNumber;
@@ -174,5 +175,11 @@ public class InterviewDTO {
 	}
 	public void setOverallRating(RatingEnum overallRating) {
 		this.overallRating = overallRating;
+	}
+	public String getReason() {
+		return reason;
+	}
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 }
