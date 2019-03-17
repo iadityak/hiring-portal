@@ -1,5 +1,7 @@
 package com.idemia.hiring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,23 +29,25 @@ public class CandidateFeedbackController {
 	private CandidateFeedbackService candidateFeedbackService;
 
 	@PostMapping("/submitfeedback")
-	public void submitFeedback(@ModelAttribute CandidateFeedbackDTO candidateFeedbackDTO) {
+	public ModelAndView submitFeedback(@ModelAttribute CandidateFeedbackDTO candidateFeedbackDTO) {
+		ModelAndView modelAndView = new ModelAndView("thankyou");
 		candidateFeedbackService.submitFeedback(candidateFeedbackDTO);
+		return modelAndView;
 	}
 
 	@GetMapping("/sendemail/{interviewid}")
-	public void sendEmailForCandFeedback(@PathVariable("interviewid") Integer interviewId) {
+	public void sendEmailForCandFeedback(@PathVariable("interviewid") Integer interviewId,HttpServletRequest request) {
 		if (interviewId != null && interviewId != 0)
-			candidateFeedbackService.sendEmailForCandFeedback(interviewId);
+			candidateFeedbackService.sendEmailForCandFeedback(interviewId, request);
 		else
 			throw new CandidateException("Interview Id can not be null/0");
 
 	}
 
 	@GetMapping("/returnfeedbackform")
-	public ModelAndView returnFeedbackForm(@RequestParam String jwtToken) {
+	public ModelAndView returnFeedbackForm(@RequestParam String id) {
 		ModelAndView modelAndView = new ModelAndView("feedback");
-		candidateFeedbackService.returnFeedbackForm(jwtToken, modelAndView);
+		candidateFeedbackService.returnFeedbackForm(id, modelAndView);
 		return modelAndView;
 	}
 

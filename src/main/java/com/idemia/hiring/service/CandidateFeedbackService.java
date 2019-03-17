@@ -1,5 +1,7 @@
 package com.idemia.hiring.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.idemia.hiring.dto.CandidateFeedbackDTO;
@@ -19,10 +21,11 @@ public interface CandidateFeedbackService {
 
 	CandidateFeedback createCandFeedback(CandidateFeedback candidateFeedback);
 
-	void sendEmailForCandFeedback(Integer interviewId);
+	void sendEmailForCandFeedback(Integer interviewId, HttpServletRequest request);
 
-	void createCandidateFeedbackMail(Candidate fetchedCandidate, String subject, String jwtToken);
-
+	void createCandidateFeedbackMail(Candidate fetchedCandidate, String subject, String jwtToken,
+			HttpServletRequest request);
+	
 	void returnFeedbackForm(String jwtToken, ModelAndView modelAndView);
 
 	void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO);

@@ -1,6 +1,10 @@
 package com.idemia.hiring.service.Impl;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDateTime;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -57,7 +61,7 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 	}
 
 	@Override
-	public void sendEmailForCandFeedback(Integer interviewId) {
+	public void sendEmailForCandFeedback(Integer interviewId, HttpServletRequest request) {
 		Interview fetchedRound = interviewService.findByInterviewId(interviewId);
 		if (fetchedRound != null) {
 			Candidate fetchedCandidate = fetchedRound.getCandidate();
@@ -68,7 +72,9 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 						String jwtToken = jsonWebTokenUtility.createJwtToken(fetchedCandidate.getEmail(),
 								AppConstants.jwtIssuer, fetchedRound.getInterviewId().toString(),
 								fetchedCandidate.getCandidateId().toString());
-						createCandidateFeedbackMail(fetchedCandidate, AppConstants.candFeedbackEmailSubject, jwtToken);
+						createCandidateFeedbackMail(fetchedCandidate,
+								AppConstants.candFeedbackEmailSubject + fetchedRound.getRoundNumber(), jwtToken,
+								request);
 					} else
 						throw new CandidateException(AppError.positionNotExists);
 
@@ -79,15 +85,28 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 	}
 
 	@Override
-	public void createCandidateFeedbackMail(Candidate fetchedCandidate, String subject, String jwtToken) {
+	public void createCandidateFeedbackMail(Candidate fetchedCandidate, String subject, String jwtToken, HttpServletRequest request) {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(fetchedCandidate.getEmail());
 		message.setSubject(subject);
 		message.setText((AppConstants.candFeedMailBody.replace("{name}", fetchedCandidate.getFirstName())
 				.replace("{company}", AppConstants.comapnyName)
-				.replace("{position}", fetchedCandidate.getRequirement().getPosition())) + ""
-				+ AppConstants.localEnvBaseUrl + "" + AppConstants.returnFeedFormUrl + jwtToken);
+				.replace("{position}", fetchedCandidate.getRequirement().getPosition())) + System.lineSeparator()+""
+				+ getURLBase(request) + AppConstants.returnFeedFormUrl + jwtToken);
 		emailSender.send(message);
+
+	}
+
+	public String getURLBase(HttpServletRequest request) {
+
+		URL requestURL = null;
+		try {
+			requestURL = new URL(request.getRequestURL().toString());
+		} catch (MalformedURLException e) {
+			throw new CandidateException(e.getMessage());
+		}
+		String port = requestURL.getPort() == -1 ? "" : ":" + requestURL.getPort();
+		return requestURL.getProtocol() + "://" + requestURL.getHost() + port;
 
 	}
 
