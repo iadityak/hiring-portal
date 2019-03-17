@@ -11,10 +11,12 @@ pipelines:
         caches:
           - maven
         script: # Modify the commands below to build your repository.
-          - mvn -B verify # -B batch mode makes Maven less verbose
+          - echo "Build Maven Project"
     - step:
+        caches:
+          - maven
         name: Manual step
         trigger: manual
         script:
-          - mvn clean install
+          - mvn -B install
 
