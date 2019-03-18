@@ -3,6 +3,7 @@ package com.idemia.hiring.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.idemia.hiring.service.CandidateFeedbackService;
  */
 @RestController
 @RequestMapping("/api/candidate/feedback")
+@CrossOrigin
 public class CandidateFeedbackController {
 
 	@Autowired

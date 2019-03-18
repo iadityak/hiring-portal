@@ -30,4 +30,8 @@ public interface CandidateFeedbackService {
 
 	void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO);
 
+	CandidateFeedback findByInterviewId(Integer interviewId);
+
+	void checkIfFeedbackSubmitted(Integer fetchedRoundId);
+
 }

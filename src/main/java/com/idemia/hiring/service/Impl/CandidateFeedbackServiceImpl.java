@@ -64,6 +64,7 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 	public void sendEmailForCandFeedback(Integer interviewId, HttpServletRequest request) {
 		Interview fetchedRound = interviewService.findByInterviewId(interviewId);
 		if (fetchedRound != null) {
+			checkIfFeedbackSubmitted(fetchedRound.getInterviewId());
 			Candidate fetchedCandidate = fetchedRound.getCandidate();
 			if (fetchedCandidate != null) {
 				if (fetchedCandidate.getEmail() != null && !fetchedCandidate.getEmail().isEmpty()) {
@@ -82,6 +83,12 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 					throw new CandidateException(AppError.emailNotExists + fetchedCandidate.getFirstName());
 			}
 		}
+	}
+	@Override
+	public void checkIfFeedbackSubmitted(Integer fetchedRoundId) {
+		CandidateFeedback candidateFeedback=findByInterviewId(fetchedRoundId);
+		if(candidateFeedback!=null)
+			throw new CandidateException(AppError.feedbackAlreadySubmitted);
 	}
 
 	@Override
@@ -127,5 +134,9 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 		candidateFeedback.setCandFeedCandidate(fetchedInterview.getCandidate());
 		candidateFeedback.setCandFeedRound(fetchedInterview);
 		createCandFeedback(candidateFeedback);
+	}
+	@Override
+	public CandidateFeedback findByInterviewId(Integer interviewId) {
+		return candidateFeedbackRepository.findByCandFeedRound(interviewService.findByInterviewId(interviewId));
 	}
 }

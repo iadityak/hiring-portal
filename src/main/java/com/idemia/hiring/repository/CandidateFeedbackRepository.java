@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.idemia.hiring.entity.CandidateFeedback;
+import com.idemia.hiring.entity.Interview;
 
 /**
  * Specifies methods used to obtain and modify CandidateFeedback related
@@ -11,5 +12,7 @@ import com.idemia.hiring.entity.CandidateFeedback;
  */
 @Repository
 public interface CandidateFeedbackRepository extends JpaRepository<CandidateFeedback, Integer> {
+
+	CandidateFeedback findByCandFeedRound(Interview interview);
 
 }
