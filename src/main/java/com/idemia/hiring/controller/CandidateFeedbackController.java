@@ -33,7 +33,7 @@ public class CandidateFeedbackController {
 	@PostMapping("/submitfeedback")
 	public ModelAndView submitFeedback(@ModelAttribute CandidateFeedbackDTO candidateFeedbackDTO) {
 		ModelAndView modelAndView = new ModelAndView("thankyou");
-		candidateFeedbackService.submitFeedback(candidateFeedbackDTO);
+		candidateFeedbackService.submitFeedback(candidateFeedbackDTO, modelAndView);
 		return modelAndView;
 	}
 
