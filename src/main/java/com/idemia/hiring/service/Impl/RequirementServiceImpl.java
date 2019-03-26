@@ -75,7 +75,6 @@ public class RequirementServiceImpl implements RequirementService {
 	@Override
 	@Transactional
 	public void uploadAllRequirement(MultipartFile file) throws EncryptedDocumentException, InvalidFormatException, IOException {
-//		final String FILE_PATH = "";
 
 		Workbook workbook = WorkbookFactory.create(file.getInputStream());
 		Iterator<Sheet> sheetIterator = workbook.sheetIterator();

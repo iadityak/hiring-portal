@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.common.io.Files;
 import com.idemia.hiring.dto.RequirementDTO;
 import com.idemia.hiring.entity.Candidate;
 import com.idemia.hiring.entity.Requirement;
+import com.idemia.hiring.exception.AppError;
+import com.idemia.hiring.exception.RequirementException;
 import com.idemia.hiring.service.RequirementService;
 
 @RestController
@@ -34,9 +37,19 @@ public class RequirementController {
 	}
 	@PostMapping("/upload")
 	@CrossOrigin
-	public void addAllRequirements(@RequestParam("file") MultipartFile file ) throws InvalidFormatException, IOException {
-		System.out.println(file.getName());
-		requirementService.uploadAllRequirement(file);
+	public void addAllRequirements(@RequestParam("file") MultipartFile file)
+			throws InvalidFormatException, IOException {
+		 String tempFile = file.getOriginalFilename();
+		 String fileExtension = Files.getFileExtension(tempFile);
+		 System.out.println(fileExtension);
+		 if(!fileExtension.equalsIgnoreCase("xls") && !fileExtension.equalsIgnoreCase("xlsx")) {
+			 try {
+				throw new RequirementException(AppError.fileError);
+			} catch (RequirementException e) {
+				//e.printStackTrace();
+			}
+		 }
+		 requirementService.uploadAllRequirement(file);
 	}
 	
 	@GetMapping("/get/all")
