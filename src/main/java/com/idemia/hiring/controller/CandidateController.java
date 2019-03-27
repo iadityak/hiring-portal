@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.idemia.hiring.dto.CandidateDTO;
 import com.idemia.hiring.entity.Candidate;
+import com.idemia.hiring.exception.AppError;
 import com.idemia.hiring.exception.CandidateException;
 import com.idemia.hiring.service.CandidateService;
 
@@ -27,10 +28,13 @@ public class CandidateController {
 	
 	@PostMapping("/add")
 	public void addCandidate(@RequestBody CandidateDTO candidateDTO) {
-		if(!candidateService.candidateExistsByPan(candidateDTO.getPanCard()))
-			candidateService.addCandidate(candidateDTO);
-		else
-			throw new CandidateException("Candidate with this PAN Number already exist.");
+		if (candidateDTO.getPanCard() != null && !candidateDTO.getPanCard().isEmpty()) {
+			if (!candidateService.candidateExistsByPan(candidateDTO.getPanCard()))
+				candidateService.addCandidate(candidateDTO);
+			else
+				throw new CandidateException(AppError.candPantExists);
+		} else
+			throw new CandidateException(AppError.candPanEmpty);
 	}
 	
 	@GetMapping("/get/all")

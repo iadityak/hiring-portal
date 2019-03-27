@@ -63,4 +63,9 @@ public class InterviewServiceImpl implements InterviewService {
 
 	}
 
+	@Override
+	public Interview findByInterviewId(Integer interviewId) {
+		return interviewRepository.findByInterviewId(interviewId);
+	}
+
 }

@@ -9,8 +9,6 @@ import com.idemia.hiring.entity.Candidate;
 import com.idemia.hiring.entity.Interview;
 import com.idemia.hiring.entity.Requirement;
 
-import ma.glasnost.orika.BoundMapperFacade;
-import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
@@ -59,13 +57,27 @@ public class ObjectMapper {
 		interview.setDomainLogic(interviewDTO.getDomainLogic());
 		interview.setInterviewerComments(interviewDTO.getInterviewerComments());
 		interview.setInterviewerName(interviewDTO.getInterviewerName());
+		interview.setProgramming(interviewDTO.getProgramming());
 		interview.setRoundNumber(interviewDTO.getRoundNumber());
 		interview.setRoundStatus(interviewDTO.getRoundStatus());
 		interview.setAnalysis(interviewDTO.getAnalysis());
 		interview.setDesigning(interviewDTO.getDesigning());
 		interview.setDocumentation(interviewDTO.getDocumentation());
 		interview.setIntegration(interviewDTO.getIntegration());
+		interview.setProcess(interviewDTO.getProcess());
+		interview.setQuality(interviewDTO.getQuality());
+		interview.setTesting(interviewDTO.getTesting());
+		interview.setStructuredTechniques(interviewDTO.getStructuredTechniques());
+		interview.setDocumentation(interviewDTO.getDocumentation());
+		interview.setTechSupport(interviewDTO.getTechSupport());
+		interview.setSysAdministration(interviewDTO.getSysAdministration());
+		interview.setPlanningAndOrganizing(interviewDTO.getPlanningAndOrganizing());
+		interview.setScheduleManagement(interviewDTO.getScheduleManagement());
+		interview.setProjectManagement(interviewDTO.getProjectManagement());
+		interview.setProjectEstimationSkills(interviewDTO.getProjectEstimationSkills());
+		interview.setPeopleManagement(interviewDTO.getPeopleManagement());
 		interview.setOverallRating(interviewDTO.getOverallRating());
+		interview.setReason(interviewDTO.getReason());
 		return interview;
 	}
 }

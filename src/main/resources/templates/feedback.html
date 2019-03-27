@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 6px;
+	margin-bottom: 16px;
+	resize: vertical;
+}
+
+input[type=submit] {
+	background-color: #5f5f5f78;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
+
+input[type=submit]:hover {
+	background-color: #808880d6a;
+}
+
+.container {
+	border-radius: 5px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-all {
+	width: 690px; //
+	border: 3px solid #73AD21;
+}
+
+.share {
+	margin-bottom: 40px;
+}
+</style>
+</head>
+<body>
+
+
+
+	<div class="container form-all">
+		<h3 class="share">Share your feedback with us</h3>
+		<form
+			action="http://localhost:8080/api/candidate/feedback/submitfeedback"
+			method="post">
+			<label for="rate">Please rate our interviewer</label> <select
+				id="rate" name="rating">
+				<option value="POOR">Poor</option>
+				<option value="FAIR">Fair</option>
+				<option value="GOOD">Good</option>
+				<option value="VERY_GOOD">Very Good</option>
+				<option value="EXCELLENT">Excellent</option>
+			</select> <label for="subject">Suggestion/Feedback</label>
+			<textarea id="subject" name="comments"
+				placeholder="Write something.." style="height: 200px"></textarea>
+			<input type="hidden" id="userRoundId" name="interviewId"
+				th:value=${interviewId}> <input type="submit" value="Submit">
+		</form>
+	</div>
+
+</body>
+</html>

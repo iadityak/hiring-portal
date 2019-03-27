@@ -29,7 +29,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ResponseEnvelope errorMessage = new ResponseEnvelope();
 		errorMessage.setSuccess(false);
 		errorMessage.setMessage(exception.getMessage());
-		return new ResponseEntity<Object>(errorMessage, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<Object>(errorMessage, HttpStatus.BAD_REQUEST);
 	}
 	
 	@Override

@@ -11,4 +11,6 @@ public interface InterviewService {
 
 	List<Interview> getAllInterview(String panCard);
 
+	Interview findByInterviewId(Integer interviewId);
+
 }

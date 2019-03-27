@@ -59,9 +59,9 @@ public class Candidate {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "candidate")
 	@JsonIgnore
 	private final List<Interview> interview = new ArrayList<>();
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "requisition_id")
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "requisition_id")
 	@JsonIgnore
 	private Requirement requirement;
 	
@@ -73,7 +73,10 @@ public class Candidate {
 	
 	@UpdateTimestamp
 	private Timestamp lastUpdated;
-	
+	@OneToMany(mappedBy = "candFeedCandidate")
+	@JsonIgnore
+	private List<CandidateFeedback> listOfCandidateFeedback;
+
 	public String getPanCard() {
 		return panCard;
 	}
@@ -157,5 +160,20 @@ public class Candidate {
 	public void setDateOfEnrollment(Timestamp dateOfEnrollment) {
 		this.dateOfEnrollment = dateOfEnrollment;
 	}
-	
+
+	public Integer getCandidateId() {
+		return candidateId;
+	}
+
+	public void setCandidateId(Integer candidateId) {
+		this.candidateId = candidateId;
+	}
+	public List<CandidateFeedback> getListOfCandidateFeedback() {
+		return listOfCandidateFeedback;
+	}
+	public void setListOfCandidateFeedback(List<CandidateFeedback> listOfCandidateFeedback) {
+		this.listOfCandidateFeedback = listOfCandidateFeedback;
+	}
+
+
 }
