@@ -25,6 +25,8 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
+		if (selectedContentType.getSubtype().equalsIgnoreCase("html") || selectedContentType.getSubtype().equalsIgnoreCase("pdf"))
+            return body;
 		String path = req.getRequestURI();
 		return body instanceof ResponseEnvelope || body instanceof LinkedHashMap ? body
 				: new ResponseEnvelope(body, null, path);

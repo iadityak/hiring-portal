@@ -39,6 +39,5 @@ public class ResumeServiceImpl implements ResumeService {
 	@Override
 	public Resume download(String panCard) {
 		return resumeRepository.findByCandidateId(panCard);
-		
 	}
 }
