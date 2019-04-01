@@ -11,8 +11,9 @@ package com.idemia.hiring.exception;
  */
 public interface AppError {
 
-	String candPanEmpty = "Please enter your Pan number";
-	String candPantExists = "Candidate with this PAN Number already exist ";
+	String candPhoneEmpty = "Please enter your phone number";
+	String candPhoneExists = "Candidate with this phone number already exist ";
+	String noCandForPhone = "Candidate with this phone number does not exist ";
 	String noCandForEmail = "Candidate with this Email Id does not exist ";
 	String candDuplicateEmail = "There are more than one conadidate corresponding to this email ";
 	String emailNotExists = "Please provide the email id of the Candidate ";

@@ -31,7 +31,7 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	@Transactional
 	public void addInterview(InterviewDTO interviewDTO) {
-		Candidate candidate = candidateRepository.findByPanCard(interviewDTO.getCandidatePanCard());
+		Candidate candidate = candidateRepository.findByPhoneNumber(interviewDTO.getCandPhoneNumber());
 		if(candidate!=null){
 			Interview interview = objectMapper.convertToInterviewEntity(interviewDTO);
 			interview.setCandidate(candidate);
@@ -48,7 +48,7 @@ public class InterviewServiceImpl implements InterviewService {
 	@Override
 	@Transactional
 	public List<Interview> getAllInterview(String panCard) {
-		Candidate candidate = candidateRepository.findByPanCard(panCard);
+		Candidate candidate = candidateRepository.findByPhoneNumber(panCard);
 		if(candidate!=null) {
 			Hibernate.initialize(candidate.getInterview());
 			List<Interview> interview = candidate.getInterview();

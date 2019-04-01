@@ -8,7 +8,7 @@ public class InterviewDTO {
 	
 	private int roundNumber;
 	private Date dateOfInterview;
-	private String candidatePanCard;
+	private String candPhoneNumber;
 	private String interviewerName;
 	private String interviewerComments;
 	private String roundStatus;
@@ -62,11 +62,11 @@ public class InterviewDTO {
 	public void setRoundStatus(String roundStatus) {
 		this.roundStatus = roundStatus;
 	}
-	public String getCandidatePanCard() {
-		return candidatePanCard;
+	public String getCandPhoneNumber() {
+		return candPhoneNumber;
 	}
-	public void setCandidatePanCard(String candidatePanCard) {
-		this.candidatePanCard = candidatePanCard;
+	public void setCandPhoneNumber(String candPhoneNumber) {
+		this.candPhoneNumber = candPhoneNumber;
 	}
 	public RatingEnum getDomainLogic() {
 		return domainLogic;

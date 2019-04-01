@@ -19,7 +19,6 @@ public class ObjectMapper {
 	
 	public Candidate convertToCandidateEntity (CandidateDTO candidateDTO) {
 		Candidate candidate= new Candidate();
-		candidate.setPanCard(candidateDTO.getPanCard());
 		candidate.setFirstName(candidateDTO.getFirstName());
 		candidate.setLastName(candidateDTO.getLastName());
 		candidate.setEmail(candidateDTO.getEmail());

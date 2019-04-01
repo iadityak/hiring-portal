@@ -28,13 +28,13 @@ public class CandidateController {
 	
 	@PostMapping("/add")
 	public void addCandidate(@RequestBody CandidateDTO candidateDTO) {
-		if (candidateDTO.getPanCard() != null && !candidateDTO.getPanCard().isEmpty()) {
-			if (!candidateService.candidateExistsByPan(candidateDTO.getPanCard()))
+		if (candidateDTO.getPhoneNumber() != null && !candidateDTO.getPhoneNumber().isEmpty()) {
+			if (!candidateService.isCandidateExistsByPhone(candidateDTO.getPhoneNumber()))
 				candidateService.addCandidate(candidateDTO);
 			else
-				throw new CandidateException(AppError.candPantExists);
+				throw new CandidateException(AppError.candPhoneExists + candidateDTO.getPhoneNumber());
 		} else
-			throw new CandidateException(AppError.candPanEmpty);
+			throw new CandidateException(AppError.candPhoneEmpty);
 	}
 	
 	@GetMapping("/get/all")
@@ -42,18 +42,18 @@ public class CandidateController {
 		return candidateService.allCandidates();
 	}
 	
-	@GetMapping("/get/{pancard}")
-	public Candidate getCandidateByPan(@PathVariable(value = "pancard", required = true) String panCard){
-		return candidateService.findCandidatebyPan(panCard);
+	@GetMapping("/get/{phone}")
+	public Candidate getCandidateByPan(@PathVariable(value = "phone", required = true) String phoneNumber){
+		return candidateService.findCandbyPhoneNumber(phoneNumber);
 	}
 	
-	@PutMapping("/update/{pancard}")
-	public void updateCandidate(@PathVariable(value="pancard",required=true) String panCard, @RequestBody CandidateDTO candidateDTO) {
-		candidateService.updateCandidate(candidateDTO, panCard);
+	@PutMapping("/update/{phone}")
+	public void updateCandidate(@PathVariable(value="phone",required=true) String phoneNumber, @RequestBody CandidateDTO candidateDTO) {
+		candidateService.updateCandidate(candidateDTO, phoneNumber);
 	}
 	
-	@GetMapping("/get-details/{pancard}")
-	public Candidate eagerGetCanidateByPan(@PathVariable(value = "pancard", required = true) String panCard) {
-		return candidateService.eagerGetCandidateByPan(panCard);
+	@GetMapping("/get-details/{phone}")
+	public Candidate eagerGetCanidateByPan(@PathVariable(value = "phone", required = true) String phoneNumber) {
+		return candidateService.eagerGetCandidateByPhone(phoneNumber);
 	}
 }
