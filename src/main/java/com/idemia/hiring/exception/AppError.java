@@ -19,4 +19,5 @@ public interface AppError {
 	String positionNotExists = "Please provide the postion of the Requirement for which Candidate is applying";
 	String candFeedPersistError = "Unable to save feedback of Candidate";
 	String feedbackAlreadySubmitted = "Feedback Email has already been send for this Round.";
+	String fileError = "Un-supported file formate";
 }

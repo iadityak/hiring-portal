@@ -1,5 +1,7 @@
 package com.idemia.hiring.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.idemia.hiring.dto.CandidateFeedbackDTO;
 import com.idemia.hiring.exception.CandidateException;
 import com.idemia.hiring.service.CandidateFeedbackService;
+import com.idemia.hiring.util.JsonWebTokenUtility;
 
 /**
  * @author G521917(aman.ahuja@idemia.com)
@@ -27,6 +30,9 @@ import com.idemia.hiring.service.CandidateFeedbackService;
 @CrossOrigin
 public class CandidateFeedbackController {
 
+	@Autowired
+	private JsonWebTokenUtility jsonWebTokenUtility;
+	
 	@Autowired
 	private CandidateFeedbackService candidateFeedbackService;
 
@@ -49,8 +55,15 @@ public class CandidateFeedbackController {
 	@GetMapping("/returnfeedbackform")
 	public ModelAndView returnFeedbackForm(@RequestParam String id) {
 		ModelAndView modelAndView = new ModelAndView("feedback");
-		candidateFeedbackService.returnFeedbackForm(id, modelAndView);
-		return modelAndView;
+		boolean isTokenValid = jsonWebTokenUtility.isValidToken(id);
+		if(isTokenValid) {
+			candidateFeedbackService.returnFeedbackForm(id, modelAndView);
+			return modelAndView;
+	}else {
+		
+		ModelAndView modelAndView1 = new ModelAndView("pageError");
+		return modelAndView1;
 	}
 
+	}
 }
