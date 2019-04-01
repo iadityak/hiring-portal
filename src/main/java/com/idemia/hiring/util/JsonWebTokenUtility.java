@@ -2,15 +2,12 @@ package com.idemia.hiring.util;
 
 import java.security.Key;
 import java.util.Date;
-
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
-
 import org.springframework.stereotype.Component;
-
 import com.idemia.hiring.constants.AppConstants;
-
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -32,12 +29,18 @@ public class JsonWebTokenUtility {
 
 		long nowMillis = System.currentTimeMillis();
 		Date now = new Date(nowMillis);
+		System.out.println("****************************");
+		System.out.println("token generation time:" + now);
+		nowMillis += (5 * 60 * 1000);
+		Date exp = new Date(nowMillis);
+		System.out.println("token expiration time:" + exp);
+		System.out.println("*****************************");
 
 		byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(AppConstants.jwtSecretKey);
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
-		JwtBuilder builder = Jwts.builder().setIssuedAt(now).setIssuer(issuer).setSubject(subject).setId(id)
-				.signWith(signatureAlgorithm, signingKey);
+		JwtBuilder builder = Jwts.builder().setIssuedAt(now).setExpiration(exp).setIssuer(issuer).setSubject(subject)
+				.setId(id).signWith(signatureAlgorithm, signingKey);
 
 		return builder.compact();
 	}
@@ -48,4 +51,18 @@ public class JsonWebTokenUtility {
 		return claims;
 	}
 
+	// check valididty of token
+	public boolean isValidToken(String jwtToken) {
+		boolean validation = false;
+		try {
+			Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(AppConstants.jwtSecretKey))
+					.parseClaimsJws(jwtToken).getBody().getSubject();
+			validation = true;
+		} catch (ExpiredJwtException e) {
+			System.out.println("Token expired");
+		} catch (Exception e) {
+			System.out.println(" Some other exception in JWT parsing ");
+		}
+		return validation;
+	}
 }

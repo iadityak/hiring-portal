@@ -35,19 +35,16 @@ public class RequirementController {
 	public void addRequirements(@RequestBody RequirementDTO requirementDTO) {
 		requirementService.addRequirement(requirementDTO);
 	}
+	
 	@PostMapping("/upload")
 	@CrossOrigin
 	public void addAllRequirements(@RequestParam("file") MultipartFile file)
-			throws InvalidFormatException, IOException {
+			throws InvalidFormatException, IOException, RequirementException {
 		 String tempFile = file.getOriginalFilename();
 		 String fileExtension = Files.getFileExtension(tempFile);
 		 System.out.println(fileExtension);
 		 if(!fileExtension.equalsIgnoreCase("xls") && !fileExtension.equalsIgnoreCase("xlsx")) {
-			 try {
-				throw new RequirementException(AppError.fileError);
-			} catch (RequirementException e) {
-				//e.printStackTrace();
-			}
+			 throw new RequirementException(AppError.fileError);
 		 }
 		 requirementService.uploadAllRequirement(file);
 	}
