@@ -10,7 +10,7 @@ import com.idemia.hiring.entity.Interview;
 @Repository
 public interface InterviewRepository extends JpaRepository<Interview,Integer> {
 
-	List<Interview> findByCandidatePanCard(String panCard);
+	List<Interview> findByCandidatePhoneNumber(String phoneNumber);
 	
 	Interview findByInterviewId(Integer interviewId);
 

@@ -1,11 +1,12 @@
 package com.idemia.hiring.entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,8 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,19 +33,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="candidate")
+@NamedNativeQuery(name = "Candidate.getCandOnStatus", query = "call get_cand_on_status(:candStatus,:startDate,:endDate)", resultSetMapping = "CandResult")
+@SqlResultSetMapping(name = "CandResult", classes = { @ConstructorResult(targetClass = Candidate.class, columns = {
+		@ColumnResult(name = "firstName"), @ColumnResult(name = "lastName"), @ColumnResult(name = "phoneNumber"),
+		@ColumnResult(name = "email"), @ColumnResult(name = "skillSet"), @ColumnResult(name = "experienceYears"),
+		@ColumnResult(name = "onlineScore") }) })
 public class Candidate {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer candidateId;
 	
-	@Column(unique = true)
-	private String panCard;
-	
 	private String firstName;
 	
 	private String lastName;
 	
+	@Column(length = 20, unique = true, nullable = false)
 	private String phoneNumber;
 	
 	private String email;
@@ -77,11 +83,18 @@ public class Candidate {
 	@JsonIgnore
 	private List<CandidateFeedback> listOfCandidateFeedback;
 
-	public String getPanCard() {
-		return panCard;
+	public Candidate() {
+		super();
 	}
-	public void setPanCard(String panCard) {
-		this.panCard = panCard;
+	public Candidate(String firstName, String lastName, String phoneNumber, String email,String skillSet, String experienceYears
+			, String onlineScore) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.experienceYears = experienceYears;
+		this.skillSet = skillSet;
+		this.onlineScore = onlineScore;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -148,7 +161,7 @@ public class Candidate {
 	}
 	@Override
 	public String toString() {
-		return "Candidate [candidateId=" + candidateId + ", panCard=" + panCard + ", firstName=" + firstName
+		return "Candidate [candidateId=" + candidateId + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", phoneNumber=" + phoneNumber + ", email=" + email + ", experienceYears="
 				+ experienceYears + ", skillSet=" + skillSet + ", resume=" + resume + ", onlineScore=" + onlineScore
 				+ ", interview=" + interview + ", requirement=" + requirement + ", status=" + status

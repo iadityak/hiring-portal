@@ -5,6 +5,7 @@ import java.net.URL;
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,6 +27,9 @@ import com.idemia.hiring.service.InterviewService;
 import com.idemia.hiring.util.JsonWebTokenUtility;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 
 /***
  * 
@@ -73,6 +77,7 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 						String jwtToken = jsonWebTokenUtility.createJwtToken(fetchedCandidate.getEmail(),
 								AppConstants.jwtIssuer, fetchedRound.getInterviewId().toString(),
 								fetchedCandidate.getCandidateId().toString());
+						System.out.println("jwt token is:"+jwtToken);
 						createCandidateFeedbackMail(fetchedCandidate,
 								AppConstants.candFeedbackEmailSubject + fetchedRound.getRoundNumber(), jwtToken,
 								request);
@@ -139,4 +144,5 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 	public CandidateFeedback findByInterviewId(Integer interviewId) {
 		return candidateFeedbackRepository.findByCandFeedRound(interviewService.findByInterviewId(interviewId));
 	}
+
 }
