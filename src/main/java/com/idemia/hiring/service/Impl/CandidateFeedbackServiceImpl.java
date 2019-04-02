@@ -68,7 +68,9 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 	public void sendEmailForCandFeedback(Integer interviewId, HttpServletRequest request) {
 		Interview fetchedRound = interviewService.findByInterviewId(interviewId);
 		if (fetchedRound != null) {
-			checkIfFeedbackSubmitted(fetchedRound.getInterviewId());
+			CandidateFeedback candidateFeedback = findByInterviewId(fetchedRound.getInterviewId());
+			if (candidateFeedback != null)
+				throw new CandidateException(AppError.feedbackAlreadySubmitted);
 			Candidate fetchedCandidate = fetchedRound.getCandidate();
 			if (fetchedCandidate != null) {
 				if (fetchedCandidate.getEmail() != null && !fetchedCandidate.getEmail().isEmpty()) {
@@ -89,13 +91,6 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 			}
 		}
 	}
-	@Override
-	public void checkIfFeedbackSubmitted(Integer fetchedRoundId) {
-		CandidateFeedback candidateFeedback=findByInterviewId(fetchedRoundId);
-		if(candidateFeedback!=null)
-			throw new CandidateException(AppError.feedbackAlreadySubmitted);
-	}
-
 	@Override
 	public void createCandidateFeedbackMail(Candidate fetchedCandidate, String subject, String jwtToken, HttpServletRequest request) {
 		SimpleMailMessage message = new SimpleMailMessage();
@@ -130,15 +125,21 @@ public class CandidateFeedbackServiceImpl implements CandidateFeedbackService {
 	}
 
 	@Override
-	public void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO) {
-		CandidateFeedback candidateFeedback = new CandidateFeedback();
-		candidateFeedback.setCandFeedComments(candidateFeedbackDTO.getComments());
-		candidateFeedback.setCandFeedCreated(LocalDateTime.now());
-		candidateFeedback.setCandFeedOverallRating(RatingEnum.valueOf(candidateFeedbackDTO.getRating()));
-		Interview fetchedInterview = interviewService.findByInterviewId(candidateFeedbackDTO.getInterviewId());
-		candidateFeedback.setCandFeedCandidate(fetchedInterview.getCandidate());
-		candidateFeedback.setCandFeedRound(fetchedInterview);
-		createCandFeedback(candidateFeedback);
+	public void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO, ModelAndView modelAndView) {
+		CandidateFeedback candidateFeedback = findByInterviewId(candidateFeedbackDTO.getInterviewId());
+		if (candidateFeedback != null) {
+			modelAndView.addObject("candidateFeedback", candidateFeedback);
+		} else {
+			candidateFeedback = new CandidateFeedback();
+			candidateFeedback.setCandFeedComments(candidateFeedbackDTO.getComments());
+			candidateFeedback.setCandFeedCreated(LocalDateTime.now());
+			candidateFeedback.setCandFeedOverallRating(RatingEnum.valueOf(candidateFeedbackDTO.getRating()));
+			Interview fetchedInterview = interviewService.findByInterviewId(candidateFeedbackDTO.getInterviewId());
+			candidateFeedback.setCandFeedCandidate(fetchedInterview.getCandidate());
+			candidateFeedback.setCandFeedRound(fetchedInterview);
+			createCandFeedback(candidateFeedback);
+			modelAndView.addObject("candidateFeedback", null);
+		}
 	}
 	@Override
 	public CandidateFeedback findByInterviewId(Integer interviewId) {
