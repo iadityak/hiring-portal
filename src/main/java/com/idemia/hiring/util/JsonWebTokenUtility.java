@@ -29,12 +29,8 @@ public class JsonWebTokenUtility {
 
 		long nowMillis = System.currentTimeMillis();
 		Date now = new Date(nowMillis);
-		System.out.println("****************************");
-		System.out.println("token generation time:" + now);
-		nowMillis += (5 * 60 * 1000);
+		nowMillis += (24 * 60 * 60 * 1000);
 		Date exp = new Date(nowMillis);
-		System.out.println("token expiration time:" + exp);
-		System.out.println("*****************************");
 
 		byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(AppConstants.jwtSecretKey);
 		Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());

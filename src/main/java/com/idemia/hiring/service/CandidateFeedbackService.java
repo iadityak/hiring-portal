@@ -28,10 +28,8 @@ public interface CandidateFeedbackService {
 	
 	void returnFeedbackForm(String jwtToken, ModelAndView modelAndView);
 
-	void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO);
+	void submitFeedback(CandidateFeedbackDTO candidateFeedbackDTO, ModelAndView modelAndView);
 
 	CandidateFeedback findByInterviewId(Integer interviewId);
-
-	void checkIfFeedbackSubmitted(Integer fetchedRoundId);
 
 }
