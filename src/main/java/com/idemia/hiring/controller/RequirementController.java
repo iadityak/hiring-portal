@@ -59,4 +59,9 @@ public class RequirementController {
 		return requirementService.getCandidatesFroRequirements(requisitionId);
 		
 	}
+	@GetMapping("/get/requirementDetail/{RquisitionId}")
+	public Requirement getRequirementDetail(@PathVariable(value="RquisitionId",required=true) String requisitionId)
+			throws RequirementException {
+		return requirementService.getRequirementDetail(requisitionId);
+	}
 }

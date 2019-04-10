@@ -29,6 +29,7 @@ import com.idemia.hiring.dto.RequirementDTO;
 import com.idemia.hiring.entity.Candidate;
 import com.idemia.hiring.entity.Requirement;
 import com.idemia.hiring.exception.CandidateException;
+import com.idemia.hiring.exception.RequirementException;
 import com.idemia.hiring.mapper.ObjectMapper;
 import com.idemia.hiring.repository.RequirementRepository;
 import com.idemia.hiring.service.RequirementService;
@@ -53,6 +54,17 @@ public class RequirementServiceImpl implements RequirementService {
 	@Transactional
 	public List<Requirement> getAllRequirements() {
 		return requirementRepository.findAll();
+	}
+	
+	@Override
+	@Transactional
+	public Requirement getRequirementDetail(String requisitionId) throws RequirementException {
+		Requirement requirement = requirementRepository.findByRequisitionId(requisitionId);
+		if(requirement == null) {
+			throw new RequirementException("No Requirement exist with this requisition Id");
+		}
+		return requirement;
+		
 	}
 
 	@Override
@@ -125,4 +137,5 @@ public class RequirementServiceImpl implements RequirementService {
 
 		return requirementDTO;
 	}
+
 }
