@@ -26,15 +26,15 @@ public class ResumeController {
 	@Autowired
 	private ResumeService resumeService;
 	
-	@PostMapping("/upload/{pancard}")
-	public void uploadResume(@PathVariable(value = "pancard") String panCard, @RequestBody MultipartFile file) {
+	@PostMapping("/upload/{phoneNumber}")
+	public void uploadResume(@PathVariable(value = "phoneNumber") String phoneNumber, @RequestBody MultipartFile file) {
 		System.out.println("Uploading...");
-		resumeService.upload(panCard,file);
+		resumeService.upload(phoneNumber,file);
 	}
 	
-	@GetMapping("/download/{pancard}")
-	public ResponseEntity<Resource> downloadResume(@PathVariable(value = "pancard") String panCard) {
-		Resume resume = resumeService.download(panCard);
+	@GetMapping("/download/{phoneNumber}")
+	public ResponseEntity<Resource> downloadResume(@PathVariable(value = "phoneNumber") String phoneNumber) {
+		Resume resume = resumeService.download(phoneNumber);
 		return ResponseEntity.ok()
 	                .contentType(MediaType.parseMediaType(resume.getFiletype()))
 	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resume.getCandidateId() + "\"")
