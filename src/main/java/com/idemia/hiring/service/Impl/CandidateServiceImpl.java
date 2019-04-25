@@ -39,10 +39,15 @@ public class CandidateServiceImpl implements CandidateService{
 	
 	@Autowired
 	private ObjectMapper objectMapper;
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
+	
+//	@Bean
+//	public ModelMapper modelMapper() {
+//		return new ModelMapper();
+//	}
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Override
 	@Transactional
 	public void addCandidate(CandidateDTO candidateDTO) {
@@ -64,10 +69,11 @@ public class CandidateServiceImpl implements CandidateService{
 	}
 
 	@Override
-	public Candidate findCandbyPhoneNumber(String phoneNumber) {
+	public CandidateDTO findCandbyPhoneNumber(String phoneNumber) {
 		Candidate candidate = candidateRepository.findByPhoneNumber(phoneNumber);
-		if (candidate != null)
-			return candidate;
+		if (candidate != null) {
+			String reqId = candidate.getRequirement().getRequisitionId();
+			return objectMapper.convertEntitytoCandidateDTO(candidate,reqId);}
 
 		else
 			throw new CandidateException(AppError.noCandForPhone + phoneNumber);
@@ -78,6 +84,7 @@ public class CandidateServiceImpl implements CandidateService{
 		Candidate can = candidateRepository.findByPhoneNumber(panCard);
 		if (can != null) {
 			Candidate candidate = objectMapper.convertToCandidateEntity(candidateDTO);
+			candidate.setCandidateId(can.getCandidateId());
 			candidateRepository.save(candidate);
 		} else
 			throw new CandidateException("UPDATE FAIL. Candidate doesn't exist");
@@ -140,7 +147,7 @@ public class CandidateServiceImpl implements CandidateService{
 			List<Candidate> listOfCand) {
 		listOfCand.parallelStream().forEach(candidate -> {
 			CandDashResponseDTO candDashResponseDTO = new CandDashResponseDTO();
-			modelMapper().map(candidate, candDashResponseDTO);
+			modelMapper.map(candidate, candDashResponseDTO);
 			listOfCandidates.add(candDashResponseDTO);
 
 		});

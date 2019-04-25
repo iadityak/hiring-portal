@@ -1,5 +1,7 @@
 package com.idemia.hiring.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.idemia.hiring.dto.CandidateDTO;
@@ -16,6 +18,9 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 public class ObjectMapper {
 
 	MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+	
+	@Autowired
+	private ModelMapper modelMapper;
 	
 	public Candidate convertToCandidateEntity (CandidateDTO candidateDTO) {
 		Candidate candidate= new Candidate();
@@ -78,5 +83,11 @@ public class ObjectMapper {
 		interview.setOverallRating(interviewDTO.getOverallRating());
 		interview.setReason(interviewDTO.getReason());
 		return interview;
+	}
+	
+	public CandidateDTO convertEntitytoCandidateDTO(Candidate candidate, String reqId) {
+		CandidateDTO candidateDTO = modelMapper.map(candidate,CandidateDTO.class);
+		candidateDTO.setRequisitionId(reqId);
+		return candidateDTO;
 	}
 }
