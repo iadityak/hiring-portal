@@ -85,6 +85,7 @@ public class CandidateServiceImpl implements CandidateService{
 		if (can != null) {
 			Candidate candidate = objectMapper.convertToCandidateEntity(candidateDTO);
 			candidate.setCandidateId(can.getCandidateId());
+			candidate.setRequirement(can.getRequirement());
 			candidateRepository.save(candidate);
 		} else
 			throw new CandidateException("UPDATE FAIL. Candidate doesn't exist");
