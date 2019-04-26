@@ -32,6 +32,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<Object>(errorMessage, HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler(value = org.springframework.dao.DataIntegrityViolationException.class)
+	public ResponseEntity<Object> UniqueException(Exception exception, WebRequest request) {
+		ResponseEnvelope errorMessage = new ResponseEnvelope();
+		errorMessage.setSuccess(false);
+		errorMessage.setMessage("Duplicate Keys Exist!");
+		return new ResponseEntity<Object>(errorMessage, HttpStatus.BAD_REQUEST);
+	}
+	
 	@Override
 	public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers,
 			HttpStatus status, WebRequest request) {

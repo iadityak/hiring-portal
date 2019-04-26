@@ -19,16 +19,14 @@ public class ResumeServiceImpl implements ResumeService {
 	private ResumeRepository resumeRepository;
 
 	@Override
-	public void upload(String panCard, MultipartFile file) {
-		System.out.println(file.getOriginalFilename());
+	public void upload(String phoneNumber, MultipartFile file) {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		System.out.println(fileName);
 		try {
 
 			if (fileName.contains("..")) {
 				throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
 			}
-			Resume resume = new Resume(panCard, file.getContentType(), file.getBytes());
+			Resume resume = new Resume(phoneNumber, file.getContentType(), file.getBytes());
 			resumeRepository.save(resume);
 
 		} catch (IOException ex) {
@@ -37,7 +35,7 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public Resume download(String panCard) {
-		return resumeRepository.findByCandidateId(panCard);
+	public Resume download(String phoneNumber) {
+		return resumeRepository.findByCandidateId(phoneNumber);
 	}
 }
