@@ -27,7 +27,7 @@ public class ResponseBodyHandler implements ResponseBodyAdvice<Object> {
 	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 			ServerHttpResponse response) {
-		if (selectedContentType.getSubtype().equalsIgnoreCase("html") || selectedContentType.getSubtype().equalsIgnoreCase("pdf"))
+		if (selectedContentType.getSubtype().equalsIgnoreCase("octet-stream") || selectedContentType.getSubtype().equalsIgnoreCase("pdf"))
             return body;
 
 		String path = req.getRequestURI();
