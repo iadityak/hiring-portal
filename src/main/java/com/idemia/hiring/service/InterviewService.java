@@ -13,4 +13,6 @@ public interface InterviewService {
 
 	Interview findByInterviewId(Integer interviewId);
 
+	Interview getRoundDetail(int interviewId);
+
 }

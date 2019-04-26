@@ -68,4 +68,16 @@ public class InterviewServiceImpl implements InterviewService {
 		return interviewRepository.findByInterviewId(interviewId);
 	}
 
-}
+	@Override
+	public Interview getRoundDetail(int interviewId) {
+		Interview interview = interviewRepository.findByInterviewId(interviewId);
+		if(interview != null) {
+			return interview;
+		}
+		else
+			throw new CandidateException("Interview Round not exist");
+	}
+
+	
+
+	}

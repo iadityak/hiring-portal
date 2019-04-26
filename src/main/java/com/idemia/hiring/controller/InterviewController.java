@@ -34,6 +34,9 @@ public class InterviewController {
 	public List<Interview> getInterveiw(@PathVariable(value = "pancard", required = true) String panCard){
 		return interviewService.getAllInterview(panCard);
 	}
-	
-
+	@CrossOrigin
+	@GetMapping("/get/detail/{interviewId}")
+	public Interview getRoundDetail(@PathVariable(value="interviewId",required=true)int interviewId) {
+		return interviewService.getRoundDetail(interviewId);
+	}
 }

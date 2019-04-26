@@ -32,7 +32,6 @@ public class Interview {
 	@JoinColumn(name = "candidateId")
 	@JsonIgnore
 	private Candidate candidate ;
-	
 	private int roundNumber;
 	private Date dateOfInterview;
 	private String interviewerName;
