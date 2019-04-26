@@ -63,7 +63,7 @@ public class Candidate {
 	private String onlineScore;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "candidate")
-	@JsonIgnore
+		@JsonIgnore
 	private final List<Interview> interview = new ArrayList<>();
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -72,6 +72,7 @@ public class Candidate {
 	private Requirement requirement;
 	
 	private String status;
+	
 	
 	@CreationTimestamp
 	@Column(nullable = false,updatable = false)
@@ -87,7 +88,7 @@ public class Candidate {
 		super();
 	}
 	public Candidate(String firstName, String lastName, String phoneNumber, String email,String skillSet, String experienceYears
-			, String onlineScore) {
+			, String onlineScore, Requirement requirement) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
@@ -187,6 +188,4 @@ public class Candidate {
 	public void setListOfCandidateFeedback(List<CandidateFeedback> listOfCandidateFeedback) {
 		this.listOfCandidateFeedback = listOfCandidateFeedback;
 	}
-
-
 }

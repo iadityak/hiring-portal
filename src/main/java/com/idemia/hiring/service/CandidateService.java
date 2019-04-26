@@ -14,7 +14,7 @@ public interface CandidateService {
 
 	List<Candidate> allCandidates();
 
-	Candidate findCandbyPhoneNumber(String phoneNumber);
+	CandidateDTO findCandbyPhoneNumber(String phoneNumber);
 
 	void updateCandidate(CandidateDTO candidateDTO, String panCard );
 	

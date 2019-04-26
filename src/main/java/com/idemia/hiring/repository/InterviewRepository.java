@@ -13,5 +13,6 @@ public interface InterviewRepository extends JpaRepository<Interview,Integer> {
 	List<Interview> findByCandidatePhoneNumber(String phoneNumber);
 	
 	Interview findByInterviewId(Integer interviewId);
-
+	
+	Interview findByRoundNumber(Integer roundNumber);
 }

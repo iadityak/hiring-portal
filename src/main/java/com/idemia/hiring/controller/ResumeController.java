@@ -32,7 +32,7 @@ public class ResumeController {
 		resumeService.upload(phoneNumber,file);
 	}
 	
-	@GetMapping("/download/{phoneNumber}")
+	@GetMapping("/download/{phoneNumber}") 
 	public ResponseEntity<Resource> downloadResume(@PathVariable(value = "phoneNumber") String phoneNumber) {
 		Resume resume = resumeService.download(phoneNumber);
 		return ResponseEntity.ok()

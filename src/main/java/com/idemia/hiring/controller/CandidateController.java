@@ -1,7 +1,6 @@
 package com.idemia.hiring.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +42,7 @@ public class CandidateController {
 	}
 	
 	@GetMapping("/get/{phone}")
-	public Candidate getCandidateByPan(@PathVariable(value = "phone", required = true) String phoneNumber){
+	public CandidateDTO getCandidateByPan(@PathVariable(value = "phone", required = true) String phoneNumber){
 		return candidateService.findCandbyPhoneNumber(phoneNumber);
 	}
 	
